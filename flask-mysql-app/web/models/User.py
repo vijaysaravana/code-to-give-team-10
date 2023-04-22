@@ -1,14 +1,20 @@
 class User:
-    def __init__(self, user_id=None, first_name='', last_name='', email=None, password=None,
-                 admin=False, created=None, updated=None):
-        self.user_id = user_id
+    def __init__(self, first_name='', last_name='', email=None, password=None,
+                 created=None, updated=None, city=None, role=None):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = password
-        self.admin = admin
         self.created = created
         self.updated = updated
+        self.role = role
+        self.city = city
 
+    # def __str__(self):
+    #     return f'FirstName:{self.first_name}, LastName:{self.last_name}, Email:{self.email}, created:{self.created}, updated:{self.updated}, role:{self.role}, city:{self.city}'
     def __str__(self):
-        return f'User - UserId:{self.user_id}, FirstName:{self.first_name}, Email:{self.email}, Admin: {self.admin}'
+        return str(self.to_dict())
+
+    def to_dict(self):
+        return {'first_name': self.first_name, 'last_name': self.last_name, 
+                'email': self.email, 'role': self.role, 'city': self.city}

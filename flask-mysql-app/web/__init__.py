@@ -14,8 +14,8 @@ def create_app():
     # Initialize DbUtil
     global db_util
     db_util = DbUtil(app)
-    log.info("Initialized DB UTIL in createapp!")
-    log.info(app.config)
+    # log.info("Initialized DB UTIL in createapp!")
+    # log.info(app.config)
     
     global baseDAO
     baseDAO = BaseDAO(db_util)

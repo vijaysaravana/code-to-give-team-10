@@ -1,4 +1,5 @@
-from flask import Blueprint, session, redirect, render_template, request, url_for
+import json
+from flask import Blueprint, jsonify, session, redirect, render_template, request, url_for
 from .. import baseDAO, log
 import re
 from web.models.User import User
@@ -6,6 +7,28 @@ from web.dao.UserDAO import UserDAO
 
 user_view = Blueprint('user_routes', __name__)
 userDAO = UserDAO(baseDAO)
+
+# API to get all users
+@user_view.route('/users', methods=['GET'])
+def get_users():
+    city = request.args.get('city')
+    role = request.args.get('role')
+    users = None
+    if city is not None:
+        users = userDAO.get_users_by_city(city, role)
+        log.info("Users: {}".format(users))
+        return json.dumps([user.to_dict() for user in users])
+    elif role is not None:
+        users = userDAO.get_users_by_role(role)
+    else:
+        users = userDAO.get_all_users()
+    return json.dumps([user.to_dict() for user in users])
+
+# API to get user by emailID
+@user_view.route('/users/<email>', methods=['GET'])
+def get_user(email):
+    user = userDAO.get_user_by_email(email)
+    return json.dumps(user.to_dict())
 
 
 @user_view.route('/', methods=['GET', 'POST'])
