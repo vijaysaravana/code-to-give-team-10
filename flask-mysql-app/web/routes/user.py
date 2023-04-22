@@ -8,28 +8,40 @@ from web.dao.UserDAO import UserDAO
 user_view = Blueprint('user_routes', __name__)
 userDAO = UserDAO(baseDAO)
 
-# API to get all users
+# API to get users with query params (city, role, email)
 @user_view.route('/users', methods=['GET'])
 def get_users():
     city = request.args.get('city')
     role = request.args.get('role')
+    email = request.args.get('email')
     users = None
-    if city is not None:
+    if email:
+        user = userDAO.get_user_by_email(email)
+        return json.dumps(user.to_dict()), 200
+    elif city is not None:
         users = userDAO.get_users_by_city(city, role)
-        log.info("Users: {}".format(users))
         return json.dumps([user.to_dict() for user in users])
     elif role is not None:
         users = userDAO.get_users_by_role(role)
     else:
         users = userDAO.get_all_users()
-    return json.dumps([user.to_dict() for user in users])
+    if users:
+        return json.dumps([user.to_dict() for user in users]), 200
+    
+    return jsonify([]), 200
 
-# API to get user by emailID
-@user_view.route('/users/<email>', methods=['GET'])
-def get_user(email):
-    user = userDAO.get_user_by_email(email)
-    return json.dumps(user.to_dict())
-
+# API to create user
+@user_view.route('/users', methods=['POST'])
+def create_user():
+    user = User(**request.json)
+    log.info("user: {}".format(user))
+    existing_user = userDAO.get_user(user.email, user.password)
+    if existing_user:
+        return json.dumps({'error': 'User already exists'}), 400
+    user = userDAO.create_user(user)
+    if user:
+        return json.dumps(user.to_dict()), 201 
+    return json.dumps({'error': 'User creation failed'}), 400
 
 @user_view.route('/', methods=['GET', 'POST'])
 def login():

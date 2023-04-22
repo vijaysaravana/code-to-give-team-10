@@ -44,12 +44,13 @@ class UserDAO:
         return self.get_user_by_query(query)
 
     def create_user(self, user):
-        admin = 1 if user.admin else 0
-        query = "INSERT INTO {} (`first_name`, `last_name`, `email`, `password`, `admin`) " \
-                "VALUES ('{}', '{}', '{}', '{}', '{}')".format(self.table, user.first_name, user.last_name, user.email,
-                                                               user.password, admin)
-        user = self.dao.insert(query)
-        return user
+        query = "INSERT INTO {} (`first_name`, `last_name`, `email`, `password`, `role`, `city`) " \
+                "VALUES ('{}', '{}', '{}', '{}', '{}', '{}')".format(self.table, user.first_name, user.last_name, user.email,
+                                                               user.password, user.role, user.city)
+        if self.dao.insert(query):
+            # Insert successful
+            return self.get_user_by_email(user.email)
+        return None
     
     def get_users_by_city(self, city, role=None):
         if role is None:

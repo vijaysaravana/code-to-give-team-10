@@ -35,7 +35,7 @@ class BaseDAO:
 
     def insert(self, query):
         log.debug(" Executing insert query - " + query)
-        self.execute_query(query)
+        return self.execute_query(query)
 
     def update(self, query):
         log.debug(" Executing update query - " + query)
