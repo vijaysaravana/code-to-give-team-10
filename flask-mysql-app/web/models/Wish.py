@@ -15,3 +15,7 @@ class Wish:
 
     def __str__(self):
         return f'Wish - {self.wish_id}: {self.wish_name}'
+
+    def to_dict(self):
+        return {'wish_name': self.wish_name, 'wish_description': self.wish_description,
+                'wish_id': self.wish_id, 'wish_status': self.wish_status, self.wish_maker: self.wish_maker}

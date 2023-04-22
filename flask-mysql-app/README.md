@@ -112,6 +112,119 @@ MYSQL_PORT = 3306
 python main.py
 ```
 
+## API Contracts
+
+```
+GET /users
+- Returns all the users
+Params (Filters):
+- city -> Returns users from a particular city ('Atlanta', 'Athens', 'Dalton', 'Savannah', 'Macon', 'Columbus')
+- email -> Returns users based on particular email id
+- role -> Returns users based on their role ('maker', 'giver', 'volunteer', 'staff')
+
+Example: GET http://127.0.0.1:5000/users?city=Atlanta&role=maker&email=user1@gmail.com
+
+Returns:
+[
+	{
+		"first_name": "User",
+		"last_name": "Ten",
+		"email": "user10@gmail.com",
+		"role": "maker",
+		"city": "Athens"
+	},
+	{
+		"first_name": "User",
+		"last_name": "Eleven",
+		"email": "user11@gmail.com",
+		"role": "maker",
+		"city": "Athens"
+	},
+	{
+		"first_name": "User",
+		"last_name": "Two",
+		"email": "user2@gmail.com",
+		"role": "maker",
+		"city": "Atlanta"
+	}
+]
+
+POST /users
+- Create user
+Params: 
+Headers: 
+Content-Type: application/json
+JSON Payload: 
+{
+	"first_name": "User",
+	"last_name": "Thirteen",
+	"email": "user13@gmail.com",
+	"role": "staff",
+	"city": "Atlanta",
+	"password": "password"
+}
+
+Example: POST http://127.0.0.1:5000/users
+
+Returns:
+{
+	"first_name": "User",
+	"last_name": "Thirteen",
+	"email": "user13@gmail.com",
+	"role": "staff",
+	"city": "Atlanta"
+}
+
+GET /wishes
+- Returns all wishes
+Params (Filters): 
+- city -> Returns wishes from a particular city ('Atlanta', 'Athens', 'Dalton', 'Savannah', 'Macon', 'Columbus')
+- maker_email -> Returns wishes made by maker_email
+- giver_email -> Returns wishes assigned to giver_email
+- volunteer_email -> Returns wishes assigned to volunteer
+
+Example: GET http://127.0.0.1:5000/wishes?city=Atlanta&maker_email=user1@gmail.com&giver_email=user2@gmail.com&volunteer_email=user4@gmail.com
+
+[
+	{
+		"wish_id": 1002, 
+		"wish_description": "Want to go to disney land (long).",
+		"wish_name": "Disney land",
+		"wish_status": "created",
+		"maker_email": "user1@gmail.com",
+		"giver_email": NULL,
+		"volunteer_email": NULL,
+	}
+]
+
+POST /wishes
+- Create wish
+Params: 
+Headers: 
+Content-Type: application/json
+JSON Payload: 
+{
+	"wish_description": "Want to go to disney land (long).",
+	"wish_name": "Disney land",
+	"maker_email": "user1@gmail.com",
+}
+
+Example: POST http://127.0.0.1:5000/wishes
+
+Returns:
+{
+	"wish_id": 10, 
+	"wish_description": "Want to go to disney land (long).",
+	"wish_name": "Disney land",
+	"wish_status": "created",
+	"maker_email": "user1@gmail.com",
+	"giver_email": NULL,
+	"volunteer_email": NULL,
+}
+
+
+```
+
 ## References
 
 1. https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor-execute.html
