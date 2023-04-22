@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS `wish` (
 	`maker_email` varchar(100) NOT NULL,
 	`giver_email` varchar(100) DEFAULT NULL,
 	`volunteer_email` varchar(100) DEFAULT NULL,
-  	`created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  	`updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  	`wish_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  	`wish_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`wish_status` enum('pending', 'approved', 'assigned', 'completed') NOT NULL DEFAULT 'pending',
-	`wish_details` TEXT NOT NULL,
+	`wish_description` TEXT NOT NULL,
 	FOREIGN KEY (`maker_email`) REFERENCES `users`(`email`),
 	FOREIGN KEY (`giver_email`) REFERENCES `users`(`email`),
 	FOREIGN KEY (`volunteer_email`) REFERENCES `users`(`email`),
@@ -84,10 +84,10 @@ CREATE TABLE IF NOT EXISTS `wish` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
-INSERT INTO `wish` (`wish_name`, `maker_email`, `wish_details`) 
+INSERT INTO `wish` (`wish_name`, `maker_email`, `wish_description`) 
     VALUES ('Go to Disney Land!', 'user4@gmail.com', 'I am a cancer survivor. I am interested in Football and I want to go to disneyland!');
 
-INSERT INTO `wish` (`wish_name`, `maker_email`,  `wish_details`) 
+INSERT INTO `wish` (`wish_name`, `maker_email`,  `wish_description`) 
     VALUES ('Go to Disney Land 2!', 'user2@gmail.com',  'I am a cancer survivor as well. I am interested in Football and I want to go to disneyland!');
 ```
 
@@ -190,7 +190,7 @@ Example: GET http://127.0.0.1:5000/wishes?city=Atlanta&maker_email=user1@gmail.c
 		"wish_id": 1002, 
 		"wish_description": "Want to go to disney land (long).",
 		"wish_name": "Disney land",
-		"wish_status": "created",
+		"wish_status": "pending",
 		"maker_email": "user1@gmail.com",
 		"giver_email": NULL,
 		"volunteer_email": NULL,
@@ -216,7 +216,7 @@ Returns:
 	"wish_id": 10, 
 	"wish_description": "Want to go to disney land (long).",
 	"wish_name": "Disney land",
-	"wish_status": "created",
+	"wish_status": "pending",
 	"maker_email": "user1@gmail.com",
 	"giver_email": NULL,
 	"volunteer_email": NULL,
