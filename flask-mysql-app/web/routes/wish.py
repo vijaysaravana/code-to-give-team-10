@@ -17,7 +17,6 @@ def get_wishes():
     city = request.args.get('city')
     email = request.args.get('email')
     wishes = None
-
     
     if email:
         user = userDAO.get_user_by_email(email)
@@ -44,3 +43,17 @@ def get_wishes():
         return json.dumps([wish.to_dict() for wish in wishes]), 200
     
     return jsonify([]), 200
+
+# API to create a wish
+@wish_view.route('/', methods=['POST'])
+def create_wish():
+    wish = Wish(**request.json)
+    user = userDAO.get_user_by_email(wish.maker_email)
+    if user is None or user.role != 'maker':
+        return json.dumps({'error': 'user foes not exist or user is not a wish maker'}), 400
+    
+    log.info("wish: {}".format(wish))
+    wish_created = wishDAO.create_wish(wish)
+    if wish_created:
+        return json.dumps(wish_created.to_dict()), 201 
+    return json.dumps({'error': 'Wish creation failed'}), 400

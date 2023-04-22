@@ -50,11 +50,15 @@ class WishDAO:
         return get_wish_by_dict(wish_dict)
     
     def get_wish_by_id(self, id):
-        query = "SELECT * FROM {} WHERE id = '{}'".format(self.wish_table, id)
+        query = "SELECT * FROM {} WHERE wish_id = '{}'".format(self.wish_table, id)
         return self.get_wish_by_query(query)
     
     def get_wishes_by_wish_maker(self, maker_email):
         query = "SELECT * FROM {} WHERE maker_email = '{}'".format(self.wish_table, maker_email)
+        return self.get_all(query)
+    
+    def get_pending_wishes_by_wish_maker(self, maker_email):
+        query = "SELECT * FROM {} WHERE maker_email = '{}' and wish_status = 'pending'".format(self.wish_table, maker_email)
         return self.get_all(query)
     
     def get_wishes_by_wish_volunteer(self, volunteer_email):
@@ -70,5 +74,5 @@ class WishDAO:
                 "VALUES ('{}', '{}', '{}')".format(self.wish_table, wish.wish_name, wish.wish_description, wish.maker_email)
         if self.dao.insert(query):
             # Insert successful
-            return self.get_wish_by_id(wish.wish_id)
+            return self.get_wishes_by_wish_maker(wish.maker_email)[-1]
         return None
