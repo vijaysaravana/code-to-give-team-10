@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:genie/utils/dimentions.dart';
+import 'package:genie/utils/global_vars.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   final Widget webScreenLayout;
