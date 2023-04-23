@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:genie/screens/inbox.dart';
 import 'package:genie/utils/colors.dart';
 
 import '../widgets/post_card.dart';
@@ -25,7 +26,12 @@ class DiscoverScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Inbox()),
+              );
+            },
             icon: Icon(Icons.messenger_outline),
           ),
         ],

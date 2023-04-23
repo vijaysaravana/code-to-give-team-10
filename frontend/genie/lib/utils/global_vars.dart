@@ -12,8 +12,6 @@ const homeScreenItems = [
   DiscoverScreen(),
   Text("rohan1"),
   AddPost(),
-  // DiscoverScreen(),
   SpreadTheWishes(),
-  // Profile(),
-  Inbox(),
+  Profile(),
 ];

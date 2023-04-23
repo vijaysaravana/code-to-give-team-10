@@ -21,21 +21,14 @@ class Inbox extends StatelessWidget {
             Icons.arrow_back,
             color: secondaryColor,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: Text(
           "Chats",
           style: TextStyle(color: primaryColor),
         ),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {},
-        //     icon: Icon(
-        //       Icons.messenger_outline,
-        //       color: yellowColor,
-        //     ),
-        //   ),
-        // ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:genie/utils/colors.dart';
+import 'package:genie/widgets/text_input.dart';
 
 class AddPost extends StatefulWidget {
   const AddPost({super.key});
@@ -11,6 +12,8 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
+  final TextEditingController _postController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // return Center(
@@ -46,7 +49,7 @@ class _AddPostState extends State<AddPost> {
       // ),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.fromLTRB(16, 0, 22, 34.5),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               SizedBox(
@@ -93,8 +96,7 @@ class _AddPostState extends State<AddPost> {
                 height: 20,
               ),
               Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const CircleAvatar(
                     radius: 22,
@@ -104,12 +106,15 @@ class _AddPostState extends State<AddPost> {
                     width: 10,
                   ),
                   Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                          hintText: 'Description of post/story?'),
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      expands: true, // <-- SEE HERE
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Description of post/story",
+                        ),
+                        scrollPadding: EdgeInsets.all(20.0),
+                        autofocus: true,
+                      ),
                     ),
                   ),
                 ],

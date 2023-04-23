@@ -48,6 +48,8 @@ class _MobileLayoutState extends State<MobileLayout> {
         onPageChanged: onPageChanged,
       ),
       bottomNavigationBar: CupertinoTabBar(
+        height: 60,
+        iconSize: 20,
         backgroundColor: mobileBackgroundColor,
         border: const Border(
             top: BorderSide(color: mobileBackgroundColor, width: 0)),
@@ -69,9 +71,21 @@ class _MobileLayoutState extends State<MobileLayout> {
             backgroundColor: primaryColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add_circle_outline,
-              color: _page == 2 ? yellowColor : secondaryColor,
+            icon: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 8,
+              ),
+              decoration: BoxDecoration(
+                color: redColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              child: Icon(
+                color: _page == 2 ? yellowColor : whiteColor,
+                Icons.add,
+              ),
             ),
             label: '',
             backgroundColor: primaryColor,
