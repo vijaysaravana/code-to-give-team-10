@@ -4,7 +4,124 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:genie/utils/colors.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard({super.key});
+  const PostCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // IMAGE
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 15.5),
+            // width: 343,
+            // height: 343,
+            child: Image.network(
+              "https://images.unsplash.com/photo-1682098155729-c0aff2dd10cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+            ),
+          ),
+
+          // USERNAME, USER ID AND LIKES COMMENTS SHARE
+          Container(
+            width: double.infinity,
+            height: 28.5,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // USERNAME, USERID
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0.5, 8, 0),
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            "https://images.unsplash.com/photo-1682098155729-c0aff2dd10cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: double.infinity,
+                      child: Stack(
+                        children: [
+                          Text(
+                            'Ridhwan Nordin',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          Positioned(
+                            left: 0,
+                            top: 15,
+                            child: Text(
+                              '@ridzjcob',
+                              style: TextStyle(fontWeight: FontWeight.w300),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                // LIKE COMMENT SHARE
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.star,
+                        color: yellowColor,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.mode_comment_outlined,
+                        color: secondaryColor,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.send,
+                        color: secondaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(
+            height: 20,
+          ),
+
+          Divider(
+            height: 2,
+            color: secondaryColor,
+          ),
+
+          const SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class OldPostCard extends StatelessWidget {
+  const OldPostCard({super.key});
 
   @override
   Widget build(BuildContext context) {
