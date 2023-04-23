@@ -34,7 +34,7 @@ class Profile extends StatelessWidget {
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Color(0xffffffff),
+              color: whiteColor,
             ),
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.end,
