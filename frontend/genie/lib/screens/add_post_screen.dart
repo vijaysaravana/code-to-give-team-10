@@ -16,37 +16,8 @@ class _AddPostState extends State<AddPost> {
 
   @override
   Widget build(BuildContext context) {
-    // return Center(
-    //   child: IconButton(icon: Icon(Icons.upload)),
-    // );
-
     return Scaffold(
       backgroundColor: mobileBackgroundColor,
-      // appBar: AppBar(
-      //   backgroundColor: whiteColor,
-      //   leading: IconButton(
-      //     icon: const Icon(
-      //       Icons.arrow_back,
-      //       color: secondaryColor,
-      //     ),
-      //     onPressed: () {},
-      //   ),
-      //   title: const Text('Add Post'),
-      //   centerTitle: false,
-      //   actions: [
-      //     TextButton(
-      //       onPressed: () {},
-      //       child: const Text(
-      //         'Post',
-      //         style: TextStyle(
-      //           color: mobileBackgroundColor,
-      //           fontWeight: FontWeight.w300,
-      //           fontSize: 16,
-      //         ),
-      //       ),
-      //     )
-      //   ],
-      // ),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),

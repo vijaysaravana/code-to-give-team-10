@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:genie/screens/application_status.dart';
 import 'package:genie/screens/inbox.dart';
+import 'package:genie/screens/lets_get_wishing.dart';
 
 import '../utils/colors.dart';
 
@@ -198,41 +200,60 @@ class Profile extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(40, 20, 40, 10),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: lightBlueColor,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'REQUEST A WISH',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: whiteColor,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const GetWishing()),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(40, 20, 40, 10),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: lightBlueColor,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'REQUEST A WISH',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: whiteColor,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(40, 0, 40, 10),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: lightBlueColor,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'APPLICATION STATUS',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: whiteColor,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ApplicationStatus(),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(40, 0, 40, 10),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: lightBlueColor,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'APPLICATION STATUS',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: whiteColor,
+                                ),
                               ),
                             ),
                           ),

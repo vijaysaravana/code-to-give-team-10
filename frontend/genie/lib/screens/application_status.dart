@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:genie/utils/colors.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
-import '../utils/colors.dart';
-
-class Chat extends StatefulWidget {
-  final String userName;
-
-  const Chat({
-    super.key,
-    this.userName = "Wish Coordinator",
-  });
+class ApplicationStatus extends StatefulWidget {
+  const ApplicationStatus({super.key});
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<ApplicationStatus> createState() => _ApplicationStatusState();
 }
 
-class _ChatState extends State<Chat> {
+class _ApplicationStatusState extends State<ApplicationStatus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +26,12 @@ class _ChatState extends State<Chat> {
             Navigator.pop(context);
           },
         ),
-        title: Text(
-          widget.userName,
-          style: TextStyle(color: primaryColor),
-        ),
       ),
-      body: SafeArea(
-        child: Container(),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: TimelineTile(
+          isFirst: true,
+        ),
       ),
     );
   }
