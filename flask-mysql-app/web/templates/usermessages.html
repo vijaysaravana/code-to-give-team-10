@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<h2>Messages Page</h2>
+<div>
+    <p>Your account details are below:</p>
+    <table>
+        <tr>
+            <td>FirstName:</td>
+            <td>{{ this_user['first_name'] }}</td>
+        </tr>
+         <tr>
+            <td>LastName:</td>
+            <td>{{ this_user['last_name'] }}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{ this_user['email'] }}</td>
+        </tr>
+    </table>
+</div>
+
+<!-- <div>
+    <p>Your messages are:</p>
+    <table>
+        <tr>
+            <th>Message ID</th>
+            <th>Message</th>
+            <th>Message Sender</th>
+            <th>Message Receiver</th>
+            <th>Message Timestamp</th>
+        </tr>
+        {% for message in messages %}
+        <tr>
+            <td>{{ message['message_id'] }}</td>
+            <td>{{ message['message'] }}</td>
+            <td>{{ message['sender_email'] }}</td>
+            <td>{{ message['receiver_email'] }}</td>
+            <td>{{ message['message_sent'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div> -->
+
+<!-- {% for message in messages %}
+<div class="message-bubble {{ 'sender' if message.sender_email == current_user_email else 'receiver' }}" data-timestamp="{{ message.message_sent }}">
+  <div class="message">{{ message.message }}</div>
+  <div class="metadata">{{ message.sender_email }}, {{ message.message_sent }}</div>
+</div>
+{% endfor %} -->
+
+
+{% for user in users %}
+    <!-- <p>{{ user['first_name'] }} {{ user['last_name'] }}</p> -->
+    {% if user['email'] != this_user['email']%}
+        <a href="{{ url_for('user_routes.user_conversation', user_email=user.email) }}" class="btn">{{ user['first_name'] + user['last_name'] }}</a>
+    {% endif %}
+{% endfor %}
+
+
+{% endblock %}

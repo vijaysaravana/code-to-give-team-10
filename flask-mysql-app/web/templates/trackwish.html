@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block title %}Wish Tracker{% endblock %}
+
+{% block content %}
+<h2>Wish Details</h2>
+<div>
+	{% if wishmaker is not none%}
+		<table>
+			<tr>
+				<td>Wish Maker Name:</td>
+				<td>{{ wishmaker['first_name'] + ' ' + wishmaker['last_name'] }}</td>
+			</tr>
+			<tr>
+				<td>Wish maker Email:</td>
+				<td>{{ wishmaker['email'] }}</td>
+			</tr>
+			<tr>
+				<td>City:</td>
+				<td>{{ wishmaker['city'] }}</td>
+			</tr>
+			<tr>
+				<td>Wish Name:</td>
+				<td>{{ wish['wish_name'] }}</td>
+			</tr>
+			<tr>
+				<td>Wish Description:</td>
+				<td>{{ wish['wish_description'] }}</td>
+			</tr>
+			{% if wishgiver is not none %}
+			<tr>
+				<td>Wish Giver:</td>
+				<td>{{ wishgiver['first_name'] + ' ' + wishgiver['last_name'] }}</td>
+			</tr>
+			{% endif %}
+			{% if wishvolunteer is not none %}
+			<tr>
+				<td>Wish Volunteer:</td>
+				<td>{{ wishvolunteer['first_name'] + ' ' + wishvolunteer['last_name'] }}</td>
+			</tr>
+			{% endif %}
+		</table>
+	{% endif %}
+</div>
+
+{% for user in users %}
+    {% if user and user['email'] != user_email %}
+        <a href="{{ url_for('user_routes.user_conversation', user_email=user.email) }}" class="btn">{{ user['first_name'] + user['last_name'] }}</a>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

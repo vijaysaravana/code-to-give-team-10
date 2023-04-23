@@ -57,3 +57,33 @@ def create_wish():
     if wish_created:
         return json.dumps(wish_created.to_dict()), 201 
     return json.dumps({'error': 'Wish creation failed'}), 400
+
+# API to track a wish
+@wish_view.route('/wish_status/<int:wish_id>', methods=['GET'])
+def wish_status(wish_id):
+    wish = wishDAO.get_wish_by_id(wish_id)
+    wishmaker = userDAO.get_user_by_email(wish.maker_email)
+    wishgiver = userDAO.get_user_by_email(wish.giver_email)
+    wishvolunteer = userDAO.get_user_by_email(wish.volunteer_email)
+    users = []
+    if wishmaker:
+        users.append(wishmaker)
+    if wishgiver:
+        users.append(wishgiver)
+    if wishvolunteer:
+        users.append(wishvolunteer)
+    if wish:
+        return render_template('trackwish.html', wish=wish,  wishmaker=wishmaker, wishgiver=wishgiver, wishvolunteer=wishvolunteer
+                               ,user_email=session['user_email'], users=users)
+    return json.dumps({'error': 'Wish not found'}), 400
+
+
+# TODO - API to update a wish status (For wish tracking)
+# @wish_view.route('/<wish_id>', methods=['PUT'])
+# def update_wish(wish_id):
+#     wish = Wish(**request.json)
+#     wish_id = wish_id
+#     wish_updated = wishDAO.update_wish(wish, wish_id)
+#     if wish_updated:
+#         return json.dumps(wish_updated.to_dict()), 200
+#     return json.dumps({'error': 'Wish update failed'}), 400

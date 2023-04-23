@@ -89,6 +89,31 @@ INSERT INTO `wish` (`wish_name`, `maker_email`, `wish_description`)
 
 INSERT INTO `wish` (`wish_name`, `maker_email`,  `wish_description`) 
     VALUES ('Go to Disney Land 2!', 'user2@gmail.com',  'I am a cancer survivor as well. I am interested in Football and I want to go to disneyland!');
+
+DROP TABLE IF EXISTS `messages`;
+
+CREATE TABLE IF NOT EXISTS `messages` (
+	`message_id` int(11) NOT NULL AUTO_INCREMENT,
+	`sender_email` varchar(100) NOT NULL,
+	`receiver_email` varchar(100) NOT NULL,
+	`message` TEXT NOT NULL,
+	`message_sent` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`message_id`),
+	FOREIGN KEY (`sender_email`) REFERENCES `users`(`email`),
+	FOREIGN KEY (`receiver_email`) REFERENCES `users`(`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO `messages` (`sender_email`, `receiver_email`,  `message`) 
+    VALUES ('user1@gmail.com', 'user2@gmail.com', 'Hello from 1!');
+
+INSERT INTO `messages` (`sender_email`, `receiver_email`,  `message`) 
+    VALUES ('user2@gmail.com', 'user1@gmail.com', 'Hello from 2!');
+
+INSERT INTO `messages` (`sender_email`, `receiver_email`,  `message`) 
+    VALUES ('user2@gmail.com', 'user1@gmail.com', 'Hello again from 2!');
+
+INSERT INTO `messages` (`sender_email`, `receiver_email`,  `message`) 
+    VALUES ('user1@gmail.com', 'user2@gmail.com', 'Hello again from 1!');
 ```
 
 

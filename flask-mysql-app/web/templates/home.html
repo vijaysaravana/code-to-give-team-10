@@ -3,10 +3,21 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h2>Home Page</h2>
 
 {% if user_fullname is defined and user_fullname %}
-    <p>Welcome {{ user_fullname }}!</p>
+    <h2>Welcome {{ user_fullname }}!</h2>
+    {% if user_role is defined and user_role and user_role == 'volunteer'%}
+        <h2>Volunteer Home Page</h2>
+        <h1>See what's new in Volunteering! Take a look at the annual report!</h1>
+        <a href="https://wish.org/sites/default/files/2022-07/Georgia%20Annual%20Report%20FY21%20-%20updated%207.27.pdf"><img src="https://www.guidestar.org/ViewEdoc.aspx?eDocId=8520877&amp;approved=True" alt="image description" width="300" height="200"></a>
+    {% endif %}
+
+    {% if user_role is defined and user_role and user_role == 'maker'%}
+        <h2>Wish Maker Home Page</h2>
+        <h1>See the status of your wishes!</h1>
+        <a href="wishesmade"><img src="https://www.guidestar.org/ViewEdoc.aspx?eDocId=8520877&amp;approved=True" alt="image description" width="300" height="200"></a>
+    {% endif %}
+    
 {% endif %}
 
 {% endblock %}

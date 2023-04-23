@@ -76,3 +76,10 @@ class WishDAO:
             # Insert successful
             return self.get_wishes_by_wish_maker(wish.maker_email)[-1]
         return None
+    
+    def update_wish(self, wish, wish_status):
+        query = "UPDATE {} SET wish_status = '{}' WHERE wish_id = '{}'".format(self.wish_table, wish_status, wish.wish_id)
+        if self.dao.update(query):
+            # Update successful
+            return self.get_wish_by_id(wish.wish_id)
+        return None
