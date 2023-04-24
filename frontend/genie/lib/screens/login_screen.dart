@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -21,6 +25,23 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _pwdController.dispose();
+  }
+
+  Future<void> login() async {
+    var map = new Map<String, dynamic>();
+
+    map['email'] = _emailController;
+    map['password'] = _pwdController;
+
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:5000/userlogin'),
+      headers: <String, String>{
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: json.encode(map),
+    );
+
+    print(response);
   }
 
   @override
@@ -70,6 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
               // log in button
               InkWell(
+                onTap: () async {
+                  await login();
+                },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -82,7 +106,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     color: blueColor,
                   ),
-                  child: const Text("Log in", style: TextStyle(color: primaryColor),),
+                  child: const Text(
+                    "Log in",
+                    style: TextStyle(color: primaryColor),
+                  ),
                 ),
               ),
 
@@ -103,9 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text("Don't have an account?"),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      
-                    },
+                    onTap: () {},
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: const Text(
