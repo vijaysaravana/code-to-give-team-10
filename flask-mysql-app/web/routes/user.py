@@ -105,7 +105,18 @@ def userlogin():
             msg = 'User does not exist or username/password incorrect'
     return json.dumps({'error': 'User does not exist or username/password incorrect'}), 400
 
-@user_view.route('/logout')
+# @user_view.route('/logout')
+# def logout():
+#     print("logout")
+#     session.pop('loggedin', None)
+#     session.pop('user_email', None)
+#     session.pop('user_fullname', None)
+#     session.pop('user_role', None)
+#     session.pop('user_city', None)
+#     # Redirect to login page
+#     return redirect(url_for('user_routes.login'))
+
+@user_view.route('/logout', methods=['GET', 'POST']) 
 def logout():
     print("logout")
     session.pop('loggedin', None)
@@ -114,8 +125,7 @@ def logout():
     session.pop('user_role', None)
     session.pop('user_city', None)
     # Redirect to login page
-    return redirect(url_for('user_routes.login'))
-
+    return json.dumps({'message': 'User logged out successfully'}), 200
 
 @user_view.route('/register', methods=['GET', 'POST'])
 def register():
