@@ -39,6 +39,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   	`first_name` varchar(50) NOT NULL,
   	`last_name` varchar(50) NOT NULL,
   	`password` varchar(255) NOT NULL,
+	`age` int(3) DEFAULT NULL,
+	`phone` varchar(20) DEFAULT NULL,
+	`bio` text DEFAULT NULL,
   	`created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   	`updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`city` varchar(50) NOT NULL,
@@ -48,20 +51,20 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`) 
-    VALUES ('User', 'One', 'user1@gmail.com', 'password', 'Augusta', 'volunteer');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`, `age`, `phone`, `bio`) 
+    VALUES ('User', 'One', 'user1@gmail.com', 'password', 'Augusta', 'volunteer', 21, '4999499931', 'I am a cool guy.');
 
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`) 
-    VALUES ('User', 'Two', 'user2@gmail.com', 'password', 'Atlanta', 'maker');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`, `age`, `phone`, `bio`) 
+    VALUES ('User', 'Two', 'user2@gmail.com', 'password', 'Atlanta', 'maker', 21, '4999499931', 'I am a cool guy.');
 
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`) 
-    VALUES ('User', 'Three', 'user3@gmail.com', 'password', 'Macon', 'giver');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`, `age`, `phone`, `bio`) 
+    VALUES ('User', 'Three', 'user3@gmail.com', 'password', 'Macon', 'giver', 21, '4999499931', 'I am a cool guy.');
 
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`) 
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`, `age`, `phone`, `bio`) 
     VALUES ('User', 'Four', 'user4@gmail.com', 'password', 'Dalton', 'maker');
 
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`) 
-    VALUES ('User', 'Five', 'user5@gmail.com', 'password', 'Atlanta', 'giver');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `city`, `role`, `age`, `phone`, `bio`) 
+    VALUES ('User', 'Five', 'user5@gmail.com', 'password', 'Atlanta', 'giver', 21, '4999499931', 'I am a cool guy.');
 
 -- Wish Schema
 

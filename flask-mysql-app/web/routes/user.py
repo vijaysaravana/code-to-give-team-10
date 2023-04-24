@@ -78,6 +78,32 @@ def login():
             msg = 'User does not exist or username/password incorrect'
     return render_template('index.html', msg=msg)
 
+@user_view.route('/userlogin', methods=['GET', 'POST'])
+def userlogin():
+    jsonrequest = request.get_json()
+    email = jsonrequest['email']
+    password = jsonrequest['password']
+
+    if request.method == 'POST' and email is not None and password is not None:
+        if baseDAO is None:
+            log.info("baseDAO is None!")
+
+        if userDAO is None:
+            log.info("userDAO is None!")
+
+        user = userDAO.get_user(email, password)
+        if user:
+            # Create session data, we can access this data in other routes
+            session['loggedin'] = True
+            session['user_email'] = user.email
+            session['user_fullname'] = user.first_name + ' ' + user.last_name
+            session['user_role'] = user.role
+            session['user_city'] = user.city
+            # Redirect to home page
+            return json.dumps(user.to_dict()), 200
+        else:
+            msg = 'User does not exist or username/password incorrect'
+    return json.dumps({'error': 'User does not exist or username/password incorrect'}), 400
 
 @user_view.route('/logout')
 def logout():

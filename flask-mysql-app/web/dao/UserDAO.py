@@ -44,9 +44,9 @@ class UserDAO:
         return self.get_user_by_query(query)
 
     def create_user(self, user):
-        query = "INSERT INTO {} (`first_name`, `last_name`, `email`, `password`, `role`, `city`) " \
-                "VALUES ('{}', '{}', '{}', '{}', '{}', '{}')".format(self.table, user.first_name, user.last_name, user.email,
-                                                               user.password, user.role, user.city)
+        query = "INSERT INTO {} (`first_name`, `last_name`, `email`, `password`, `role`, `city`, `age`, `phone`, `bio`) " \
+                "VALUES ('{}', '{}', '{}', '{}', '{}', '{}','{}','{}','{}')".format(self.table, user.first_name, user.last_name, user.email,
+                                                               user.password, user.role, user.city, user.age, user.phone, user.bio)
         if self.dao.insert(query):
             # Insert successful
             return self.get_user_by_email(user.email)
