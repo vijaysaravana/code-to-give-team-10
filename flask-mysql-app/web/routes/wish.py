@@ -14,8 +14,12 @@ wishDAO = WishDAO(baseDAO)
 # API to get wishes with query params (city, role, email)
 @wish_view.route('/', methods=['GET'])
 def get_wishes():
-    city = request.args.get('city')
-    email = request.args.get('email')
+    city, email = None, None
+    jsonrequest = request.get_json()
+    if 'city' in jsonrequest:
+        city = jsonrequest['city']
+    if 'email' in jsonrequest:
+        email = jsonrequest['email']
     wishes = None
     
     if email:
