@@ -15,9 +15,8 @@ class SpreadTheWishes extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
-        title: SvgPicture.asset(
-          "assets/logo.svg",
-          color: blueColor,
+        title: Image.asset(
+          "assets/logo.png",
           height: 32,
         ),
         actions: [

@@ -40,6 +40,69 @@ class _MobileLayoutState extends State<MobileLayout> {
 
   @override
   Widget build(BuildContext context) {
+    // return CupertinoTabScaffold(
+    //     tabBar: CupertinoTabBar(items: [
+    //       BottomNavigationBarItem(
+    //         icon: Icon(
+    //           Icons.home,
+    //           color: _page == 0 ? yellowColor : secondaryColor,
+    //         ),
+    //         label: '',
+    //         backgroundColor: primaryColor,
+    //       ),
+    //       BottomNavigationBarItem(
+    //         icon: Icon(
+    //           Icons.search,
+    //           color: _page == 1 ? yellowColor : secondaryColor,
+    //         ),
+    //         label: '',
+    //         backgroundColor: primaryColor,
+    //       ),
+    //       BottomNavigationBarItem(
+    //         icon: Container(
+    //           padding: EdgeInsets.symmetric(
+    //             horizontal: 20,
+    //             vertical: 8,
+    //           ),
+    //           decoration: BoxDecoration(
+    //             color: redColor,
+    //             borderRadius: BorderRadius.all(
+    //               Radius.circular(20),
+    //             ),
+    //           ),
+    //           child: Icon(
+    //             color: _page == 2 ? yellowColor : whiteColor,
+    //             Icons.add,
+    //           ),
+    //         ),
+    //         label: '',
+    //         backgroundColor: primaryColor,
+    //       ),
+    //       BottomNavigationBarItem(
+    //         icon: Icon(
+    //           Icons.star,
+    //           color: _page == 3 ? yellowColor : secondaryColor,
+    //         ),
+    //         label: '',
+    //         backgroundColor: primaryColor,
+    //       ),
+    //       BottomNavigationBarItem(
+    //         icon: Icon(
+    //           Icons.person,
+    //           color: _page == 4 ? yellowColor : secondaryColor,
+    //         ),
+    //         label: '',
+    //         backgroundColor: primaryColor,
+    //       )
+    //     ]),
+    //     tabBuilder: (context, index) {
+    //       return CupertinoTabView(builder: (context) {
+    //         return CupertinoPageScaffold(
+    //           child: homeScreenItems[index],
+    //         );
+    //       });
+    //     });
+
     return Scaffold(
       backgroundColor: mobileBackgroundColor,
       body: PageView(

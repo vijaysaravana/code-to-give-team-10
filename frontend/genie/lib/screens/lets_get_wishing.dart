@@ -47,13 +47,11 @@ class _GetWishingState extends State<GetWishing> {
               width: double.infinity,
               height: 1,
             ),
-            Text(
-              "Make a wish!",
-              style: TextStyle(
-                  fontSize: 30, color: whiteColor, fontWeight: FontWeight.w600),
-            ),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Image.asset('assets/make_a_wish.png')),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Text(
               "Let's get to Wishing!",
@@ -73,7 +71,7 @@ class _GetWishingState extends State<GetWishing> {
             Text(
               "Connecting you!",
               style: TextStyle(
-                  fontSize: 30, color: whiteColor, fontWeight: FontWeight.w600),
+                  fontSize: 30, color: whiteColor, fontWeight: FontWeight.w200),
             ),
             SizedBox(
               height: 30,
