@@ -27,6 +27,9 @@ def create_app():
     from web.routes.wish import wish_view
     app.register_blueprint(wish_view, url_prefix='/wishes')
 
+    from web.routes.messages import message_view
+    app.register_blueprint(message_view, url_prefix='/')
+
     with app.app_context():
         log.info("app.app_context()")
 
