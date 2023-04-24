@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,17 +11,20 @@ import 'package:genie/screens/lets_get_wishing.dart';
 import '../utils/colors.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  final userInfo;
+
+  Profile({super.key, required this.userInfo});
 
   @override
   Widget build(BuildContext context) {
+    print('OMG');
+    print(userInfo);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
-        title: SvgPicture.asset(
-          "assets/logo.svg",
-          color: blueColor,
+        title: Image.asset(
+          "assets/logo.png",
           height: 32,
         ),
         actions: [
@@ -68,9 +73,13 @@ class Profile extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          // margin: EdgeInsets.fromLTRB(1, 0, 0, 0),
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                           child: Text(
-                            'Ashley , 29',
+                            userInfo['first_name'] +
+                                ' ' +
+                                userInfo['last_name'] +
+                                ', ' +
+                                userInfo['age'].toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 15,
@@ -130,7 +139,7 @@ class Profile extends StatelessWidget {
                             ),
                             Container(
                               child: Text(
-                                'Hi I’m Ashley! I’m a proud mother to a strong, brave young boy named Andy! If you have any questions regarding wish process please let me know!',
+                                userInfo['bio'],
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
@@ -189,7 +198,7 @@ class Profile extends StatelessWidget {
                             ),
                             Text(
                               // sanfranciscocaAsD (513:5114)
-                              'San Francisco, CA',
+                              userInfo['city'],
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -210,6 +219,35 @@ class Profile extends StatelessWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(40, 20, 40, 10),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: lightBlueColor,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'TALK TO A COORDINATOR',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: whiteColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const GetWishing()),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(40, 0, 40, 10),
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(

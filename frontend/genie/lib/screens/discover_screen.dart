@@ -17,11 +17,10 @@ class DiscoverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: blueColor,
+        backgroundColor: whiteColor,
         centerTitle: false,
-        title: SvgPicture.asset(
-          "assets/logo.svg",
-          color: whiteColor,
+        title: Image.asset(
+          "assets/logo.png",
           height: 32,
         ),
         actions: [
@@ -32,7 +31,10 @@ class DiscoverScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const Inbox()),
               );
             },
-            icon: Icon(Icons.messenger_outline),
+            icon: Icon(
+              Icons.messenger_outline,
+              color: yellowColor,
+            ),
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:genie/screens/login_screen.dart';
 import 'package:genie/utils/colors.dart';
 import 'package:genie/widgets/text_input.dart';
 
@@ -27,6 +28,9 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
+  bool isSignedUp = false;
+  bool success = true;
+
   Future<void> _signUp() async {
     print("im alive");
     var map = new Map<String, dynamic>();
@@ -42,8 +46,6 @@ class _SignupScreenState extends State<SignupScreen> {
     map['bio'] = _bioController.text.trim();
     map['phone'] = _phoneController.text.trim();
 
-    print(json.encode(map));
-
     try {
       final response = await http.post(
         Uri.parse('http://127.0.0.1:5000/usersignup'),
@@ -53,6 +55,16 @@ class _SignupScreenState extends State<SignupScreen> {
         body: json.encode(map),
       );
       print(response.body);
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        setState(() {
+          isSignedUp = true;
+        });
+      } else {
+        setState(() {
+          success = false;
+        });
+      }
     } catch (e) {
       print(e);
     }
@@ -69,182 +81,200 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          width: double.infinity,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 64,
-                ),
-
-                // Profile pic
-                Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 64,
-                      backgroundImage: AssetImage("assets/signup.jpeg"),
-                    ),
-                    Positioned(
-                      bottom: -10,
-                      left: 80,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add_a_photo),
+    return isSignedUp
+        ? LoginScreen()
+        : Scaffold(
+            body: SafeArea(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 64,
                       ),
-                    )
-                  ],
-                ),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                      // Profile pic
+                      Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 64,
+                            backgroundImage: AssetImage("assets/signup.jpeg"),
+                          ),
+                          Positioned(
+                            bottom: -10,
+                            left: 80,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.add_a_photo),
+                            ),
+                          )
+                        ],
+                      ),
 
-                // input for name
-                TextInput(
-                  hintText: "First Name",
-                  textInputType: TextInputType.text,
-                  textEditingController: _firstNameController,
-                ),
+                      const SizedBox(
+                        height: 24,
+                      ),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                      // input for name
+                      TextInput(
+                        hintText: "First Name",
+                        textInputType: TextInputType.text,
+                        textEditingController: _firstNameController,
+                      ),
 
-                // input for last name
-                TextInput(
-                  hintText: "Last name",
-                  textInputType: TextInputType.text,
-                  textEditingController: _lastNameController,
-                ),
+                      const SizedBox(
+                        height: 24,
+                      ),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                      // input for last name
+                      TextInput(
+                        hintText: "Last name",
+                        textInputType: TextInputType.text,
+                        textEditingController: _lastNameController,
+                      ),
 
-                // input for age
-                TextInput(
-                  hintText: "Age",
-                  textInputType: TextInputType.number,
-                  textEditingController: _ageController,
-                ),
+                      const SizedBox(
+                        height: 24,
+                      ),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                      // input for age
+                      TextInput(
+                        hintText: "Age",
+                        textInputType: TextInputType.number,
+                        textEditingController: _ageController,
+                      ),
 
-                // input for bio
-                TextInput(
-                  hintText: "Tell about yourself",
-                  textInputType: TextInputType.multiline,
-                  textEditingController: _bioController,
-                ),
+                      const SizedBox(
+                        height: 24,
+                      ),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                      // input for bio
+                      TextInput(
+                        hintText: "Tell about yourself",
+                        textInputType: TextInputType.multiline,
+                        textEditingController: _bioController,
+                      ),
 
-                // input for city
-                TextInput(
-                  hintText: "city",
-                  textInputType: TextInputType.multiline,
-                  textEditingController: _cityController,
-                ),
+                      const SizedBox(
+                        height: 24,
+                      ),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                      // input for city
+                      TextInput(
+                        hintText: "city",
+                        textInputType: TextInputType.multiline,
+                        textEditingController: _cityController,
+                      ),
 
-                // input for email
-                TextInput(
-                  hintText: "Enter your email",
-                  textInputType: TextInputType.emailAddress,
-                  textEditingController: _emailController,
-                ),
+                      const SizedBox(
+                        height: 24,
+                      ),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                      // input for email
+                      TextInput(
+                        hintText: "Enter your email",
+                        textInputType: TextInputType.emailAddress,
+                        textEditingController: _emailController,
+                      ),
 
-                // input for pwd
-                TextInput(
-                  hintText: "Password",
-                  textInputType: TextInputType.text,
-                  isPwd: true,
-                  textEditingController: _pwdController,
-                ),
+                      const SizedBox(
+                        height: 24,
+                      ),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                      // input for pwd
+                      TextInput(
+                        hintText: "Password",
+                        textInputType: TextInputType.text,
+                        isPwd: true,
+                        textEditingController: _pwdController,
+                      ),
 
-                // input for phone
-                TextInput(
-                  hintText: "Phone Number",
-                  textInputType: TextInputType.phone,
-                  textEditingController: _phoneController,
-                ),
+                      const SizedBox(
+                        height: 24,
+                      ),
 
-                const SizedBox(
-                  height: 24,
-                ),
-                // log in button
-                InkWell(
-                  onTap: () async {
-                    await _signUp();
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
+                      // input for phone
+                      TextInput(
+                        hintText: "Phone Number",
+                        textInputType: TextInputType.phone,
+                        textEditingController: _phoneController,
+                      ),
+
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      // log in button
+                      InkWell(
+                        onTap: () async {
+                          await _signUp();
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          decoration: const ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(4),
+                              ),
+                            ),
+                            color: blueColor,
+                          ),
+                          child: const Text(
+                            "Sign up",
+                            style: TextStyle(
+                                color: whiteColor, fontWeight: FontWeight.w600),
+                          ),
                         ),
                       ),
-                      color: blueColor,
-                    ),
-                    child: const Text(
-                      "Sign up",
-                      style: TextStyle(
-                          color: whiteColor, fontWeight: FontWeight.w600),
-                    ),
+
+                      const SizedBox(
+                        height: 24,
+                      ),
+
+                      !success
+                          ? Text(
+                              "Sign up Failed!",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, color: redColor),
+                            )
+                          : Text(''),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: const Text("Already have an account?"),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: const Text(
+                                "Log in",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
-
-                const SizedBox(
-                  height: 24,
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: const Text("Already have an account?"),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: const Text(
-                          "Log in",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 }
