@@ -9,6 +9,7 @@ from web.models.Wish import Wish
 from web.dao.WishDAO import WishDAO
 from web.dao.MessageDAO import MessageDAO
 from web.models.Message import Message
+import os
 
 user_view = Blueprint('user_routes', __name__)
 userDAO = UserDAO(baseDAO)
@@ -136,8 +137,8 @@ def logout():
 #     # Redirect to login page
 #     return json.dumps({'message': 'User logged out successfully'}), 200
 
-@user_view.route('/register', methods=['GET', 'POST'])
-def register():
+@user_view.route('/register_as_user', methods=['GET', 'POST'])
+def register_as_user():
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST' and 'email' in request.form and 'password' in request.form \
@@ -147,7 +148,11 @@ def register():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         password = request.form['password']
-        admin = False
+        age = request.form['age']
+        bio = request.form['bio']
+        city = request.form['city']
+        role = 'maker'
+        phone = request.form['phone']
 
         print(userDAO)
         user = userDAO.get_user_by_email(email)
@@ -158,33 +163,87 @@ def register():
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
         elif not first_name or not password or not email:
-            msg = 'Please fill out the form!'
+            msg = 'Please fill out all the required values!'
         else:
             user_dict = {'first_name': first_name,
                          'last_name': last_name,
                          'email': email,
                          'password': password,
-                         'admin': admin}
+                         'age': age,
+                         'bio': bio,
+                         'city': city,
+                         'role': role,
+                         'phone': phone}
 
             user = User(**user_dict)
             print(user)
             userDAO.create_user(user)
             msg = 'You have successfully registered!'
-
+            return render_template('index.html', msg=msg)
     elif request.method == 'POST':
         # Form is empty... (no POST data)
         msg = 'Please fill out the form!'
     # Show registration form with message (if any)
-    return render_template('register.html', msg=msg)
+    return render_template('register_as_user.html', msg=msg)
 
+@user_view.route('/register_as_volunteer', methods=['GET', 'POST'])
+def register_as_volunteer():
+    msg = ''
+    # Check if "username", "password" and "email" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form \
+            and 'first_name' in request.form:
+        # Create variables for easy access
+        email = request.form['email']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        password = request.form['password']
+        age = request.form['age']
+        bio = request.form['bio']
+        city = request.form['city']
+        role = 'volunteer'
+        phone = request.form['phone']
+
+        print(userDAO)
+        user = userDAO.get_user_by_email(email)
+
+        # If account exists show error and validation checks
+        if user:
+            msg = 'Account already exists!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address!'
+        elif not first_name or not password or not email:
+            msg = 'Please fill out all the required values!'
+        else:
+            user_dict = {'first_name': first_name,
+                         'last_name': last_name,
+                         'email': email,
+                         'password': password,
+                         'age': age,
+                         'bio': bio,
+                         'city': city,
+                         'role': role,
+                         'phone': phone}
+
+            user = User(**user_dict)
+            print(user)
+            userDAO.create_user(user)
+            msg = 'You have successfully registered!'
+            return render_template('index.html', msg=msg)
+        
+    elif request.method == 'POST':
+        # Form is empty... (no POST data)
+        msg = 'Please fill out the form!'
+    # Show registration form with message (if any)
+    return render_template('register_as_volunteer.html', msg=msg)
 
 @user_view.route('/home')
 def home():
     # Check if user is loggedin
     if 'loggedin' in session:
         # User is loggedin show them the home page
+        pdfs = [f for f in os.listdir('web/static/uploads/') if f.endswith('.pdf')]
         return render_template('home.html', user_fullname=session['user_fullname'], user_role=session['user_role'],
-                               user_city=session['user_city'], user_email=session['user_email'])
+                               user_city=session['user_city'], user_email=session['user_email'], pdfs=pdfs)
     # User is not loggedin redirect to login page
     return redirect(url_for('user_routes.login'))
 
@@ -228,6 +287,12 @@ def get_messages():
         messages = messageDAO.get_messages_by_user_email(user.email)
         user_set = set([message.sender_email for message in messages])
         unique_users = [userDAO.get_user_by_email(user_email) for user_email in user_set]
+        
+        if len(unique_users) == 0:
+            if user.role == 'volunteer':
+                unique_users = userDAO.get_all_users()
+            elif user.role == 'maker':
+                unique_users = userDAO.get_volunteers()
         log.info('unique users: %s', unique_users)
         # unique_users.remove(user)
         return render_template('usermessages.html', users=unique_users, this_user=user)
@@ -271,3 +336,15 @@ def send_message():
         return render_template('userconversation.html', messages=messages, other_user=other_user, this_user=this_user)
     
     return render_template('index.html', msg="")
+
+@user_view.route('/file_upload', methods=['POST'])
+def file_upload():
+    # Check if user is loggedin
+    if request.method == 'POST' and 'file' in request.files:
+        # Create variables for easy access
+        file = request.files['file']
+        file.save(os.path.join('web/static/uploads', file.filename))
+        return render_template('home.html', user_fullname=session['user_fullname'], user_role=session['user_role'],
+                               user_city=session['user_city'], user_email=session['user_email'], msg="File uploaded successfully!")
+
+    return render_template('index.html', msg="Some issue with file upload!")

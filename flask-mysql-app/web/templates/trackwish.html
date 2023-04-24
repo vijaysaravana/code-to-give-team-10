@@ -33,6 +33,12 @@
 				<td>{{ wishgiver['first_name'] + ' ' + wishgiver['last_name'] }}</td>
 			</tr>
 			{% endif %}
+			{% if wishgiver is none %}
+			<tr>
+				<td>Wish Giver:</td>
+				<td>Unassigned</td>
+			</tr>
+			{% endif %}
 			{% if wishvolunteer is not none %}
 			<tr>
 				<td>Wish Volunteer:</td>
@@ -43,10 +49,15 @@
 	{% endif %}
 </div>
 
+{% if session['user_role'] == 'volunteer' %}
 {% for user in users %}
     {% if user and user['email'] != user_email %}
         <a href="{{ url_for('user_routes.user_conversation', user_email=user.email) }}" class="btn">{{ user['first_name'] + user['last_name'] }}</a>
     {% endif %}
 {% endfor %}
+{% endif %}
+{% if session['user_role'] == 'maker'%}
+	<a href="{{ url_for('user_routes.user_conversation', user_email=wishvolunteer.email) }}" class="btn"> Chat with a volunteer</a>
+{% endif %}
 
 {% endblock %}

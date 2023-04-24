@@ -51,7 +51,8 @@
 			<h1>Login</h1>
 			<div class="links">
 				<a href="{{ url_for('user_routes.login') }}" class="active">Login</a>
-				<a href="{{ url_for('user_routes.register') }}">Register</a>
+				<a href="{{ url_for('user_routes.register_as_user') }}">Register to make a wish</a>
+				<a href="{{ url_for('user_routes.register_as_volunteer') }}">Register as a volunteer</a>
 			</div>
 			<form action="{{ url_for('user_routes.login') }}" method="post">
 				<label for="email">

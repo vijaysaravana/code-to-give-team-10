@@ -62,20 +62,54 @@ def create_wish():
         return json.dumps(wish_created.to_dict()), 201 
     return json.dumps({'error': 'Wish creation failed'}), 400
 
+# API to create a wish - webapp
+@wish_view.route('/createwishweb', methods=['POST'])
+def create_wish_web():
+    msg = ''
+    wish_name = request.form['wish_name']
+    wish_description = request.form['wish_description']
+    maker_email = request.form['maker_email']
+    log.info("Printin maker email: {}".format(maker_email))
+    wish = Wish(wish_name=wish_name, wish_description=wish_description, maker_email=maker_email)
+    user = userDAO.get_user_by_email(wish.maker_email)
+    if user is None or user.role != 'maker':
+        return json.dumps({'error': 'user foes not exist or user is not a wish maker'}), 400
+    
+    log.info("wish: {}".format(wish))
+    wish_created = wishDAO.create_wish(wish)
+    wishmaker = userDAO.get_user_by_email(wish.maker_email)
+    if wish_created:
+        return render_template('trackwish.html', wish=wish,  wishmaker=wishmaker, wishgiver=None, wishvolunteer=None
+                               ,user_email=maker_email, users=[])
+    else:
+            msg = 'User does not exist or username/password incorrect'
+    return render_template('index.html', msg=msg)
+
+@wish_view.route('/makeawish', methods=['GET'])
+def make_a_wish():
+    return render_template('makeawish.html', user_email=session['user_email'])
+
+# Wish tracker
+@wish_view.route('/trackallwishes', methods=['GET'])
+def track_all_wishes():
+    wishes_made = wishDAO.get_all_wishes()
+    user = userDAO.get_user_by_email(session['user_email'])
+
+    return render_template('trackallwishes.html', user=user, user_email=session['user_email'], wishes=wishes_made)
+
 # API to track a wish
 @wish_view.route('/wish_status/<int:wish_id>', methods=['GET'])
 def wish_status(wish_id):
     wish = wishDAO.get_wish_by_id(wish_id)
     wishmaker = userDAO.get_user_by_email(wish.maker_email)
     wishgiver = userDAO.get_user_by_email(wish.giver_email)
-    wishvolunteer = userDAO.get_user_by_email(wish.volunteer_email)
+    wishvolunteer = userDAO.get_volunteers()[0]
     users = []
     if wishmaker:
         users.append(wishmaker)
     if wishgiver:
         users.append(wishgiver)
-    if wishvolunteer:
-        users.append(wishvolunteer)
+
     if wish:
         return render_template('trackwish.html', wish=wish,  wishmaker=wishmaker, wishgiver=wishgiver, wishvolunteer=wishvolunteer
                                ,user_email=session['user_email'], users=users)

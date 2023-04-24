@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block title %}Wish Tracker{% endblock %}
+
+{% block content %}
+<div>
+    <p>Your account:</p>
+    <table>
+        <tr>
+            <td>FirstName:</td>
+            <td>{{ user['first_name'] }}</td>
+        </tr>
+         <tr>
+            <td>LastName:</td>
+            <td>{{ user['last_name'] }}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{ user['email'] }}</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <h1>Wish list</h1>
+    {% if wishes|length == 0 %}
+    <p>There are no wishes to display!</p>
+    {% else %}
+    <table>
+        <tr>
+            <th>Wish Name</th>
+            <th>Wish Description</th>
+            <th>Wish Maker</th>
+            <th>Wish Giver</th>
+        </tr>
+        {% for wish in wishes %}
+        <tr>
+            <td>{{ wish['wish_name'] }}</td>
+            <td>{{ wish['wish_description'] }}</td>
+            <td>{{ wish['maker_email'] }}</td>
+            {% if wish['giver_email'] is not none %}
+            <td>{{ wish['giver_email'] }}</td>
+            {% else %}
+            <td><p>Unassigned</p></td>
+            {% endif %}
+            <td><a href="{{ url_for('wish_routes.wish_status', wish_id=wish['wish_id']) }}">Wish Status</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

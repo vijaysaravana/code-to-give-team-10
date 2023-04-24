@@ -9,6 +9,10 @@
 		<title>{% block title %}{% endblock %}</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<script src="{{ url_for('static', filename='pdfjs/build/pdf.js') }}"></script>
+		<script src="{{ url_for('static', filename='pdfjs/build/pdf.worker.js') }}"></script>
+		<script src="{{ url_for('static', filename='pdfjs/web/viewer.html') }}"></script>
+	  
 	</head>
 	<body class="loggedin">
 		<nav class="navtop">

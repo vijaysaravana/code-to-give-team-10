@@ -5,7 +5,7 @@
 {% block content %}
 <h2>Profile Page</h2>
 <div>
-    <p>Your account details are below:</p>
+    <p>Your account:</p>
     <table>
         <tr>
             <td>FirstName:</td>
@@ -22,23 +22,28 @@
     </table>
 </div>
 
-<p1>Click the button below to make a new wish!</p1>
-<a href="makeawish"><img src="https://www.guidestar.org/ViewEdoc.aspx?eDocId=8520877&amp;approved=True" alt="image description" width="300" height="200"></a>
+<p1>Click the button below to find a genie!</p1>
+<br>
+<br>
+
+<a href="{{ url_for('wish_routes.make_a_wish', user_email=user.email) }}" class="btn">Make a new wish!</a>
 
 
 <div>
-    <p>Your wishes are:</p>
+    {% if wishes|length == 0 %}
+    <p>There are no wishes to display!</p>
+    {% else %}
+    <h1>Your wishes:</h2>
     <table>
         <tr>
-            <th>Wish ID</th>
             <th>Wish Name</th>
             <th>Wish Description</th>
             <th>Wish Maker</th>
             <th>Wish Giver</th>
+            <th>View status</th>
         </tr>
         {% for wish in wishes %}
         <tr>
-            <td>{{ wish['wish_id'] }}</td>
             <td>{{ wish['wish_name'] }}</td>
             <td>{{ wish['wish_description'] }}</td>
             <td>{{ wish['maker_email'] }}</td>
@@ -51,6 +56,7 @@
         </tr>
         {% endfor %}
     </table>
+    {% endif %}
 </div>
 
 

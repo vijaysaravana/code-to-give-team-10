@@ -5,3 +5,4 @@ MYSQL_USER = 'root'
 MYSQL_PASSWORD = ''
 MYSQL_DB = 'flask_app_db'
 MYSQL_PORT = 3306
+UPLOAD_FOLDER = 'web/static/uploads'
