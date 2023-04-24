@@ -38,7 +38,7 @@ def get_users():
     return jsonify([]), 200
 
 # API to create user
-@user_view.route('/users', methods=['POST'])
+@user_view.route('/usersignup', methods=['POST'])
 def create_user():
     user = User(**request.json)
     log.info("user: {}".format(user))
