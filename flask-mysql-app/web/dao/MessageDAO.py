@@ -76,3 +76,7 @@ class MessageDAO:
     def get_conversation_by_users(self, sender_email, receiver_email):
         query = "SELECT * FROM {} WHERE (sender_email = '{}' AND receiver_email = '{}') OR (sender_email = '{}' AND receiver_email = '{}')".format(self.message_table, sender_email, receiver_email, receiver_email, sender_email)
         return self.get_all(query)
+    
+    def get_latest_conversation_by_users(self, sender_email, receiver_email):
+        query = "SELECT * FROM {} WHERE (sender_email = '{}' AND receiver_email = '{}') OR (sender_email = '{}' AND receiver_email = '{}') order by message_sent DESC limit 5".format(self.message_table, sender_email, receiver_email, receiver_email, sender_email)
+        return self.get_all(query)
