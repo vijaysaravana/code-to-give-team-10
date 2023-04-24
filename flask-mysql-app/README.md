@@ -46,7 +46,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   	`updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`city` varchar(50) NOT NULL,
 	`role` enum('maker', 'giver', 'volunteer', 'staff') NOT NULL,
-	FOREIGN KEY (`city`) REFERENCES `locations`(`city`),
     PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

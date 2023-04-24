@@ -18,9 +18,18 @@ messageDAO = MessageDAO(baseDAO)
 # API to get users with query params (city, role, email)
 @user_view.route('/users', methods=['GET'])
 def get_users():
-    city = request.args.get('city')
-    role = request.args.get('role')
-    email = request.args.get('email')
+    # city = request.args.get('city')
+    # role = request.args.get('role')
+    # email = request.args.get('email')
+    city, role, email = None, None, None
+    jsonrequest = request.get_json()
+    if 'city' in jsonrequest:
+        city = jsonrequest['city']
+    if 'role' in jsonrequest:
+        role = jsonrequest['role']
+    if 'email' in jsonrequest:
+        email = jsonrequest['email']
+
     users = None
     if email:
         user = userDAO.get_user_by_email(email)
