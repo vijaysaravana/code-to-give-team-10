@@ -21,7 +21,7 @@ class PostCard extends StatelessWidget {
             // width: 343,
             // height: 343,
             child: Image.network(
-              "https://images.unsplash.com/photo-1682098155729-c0aff2dd10cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+              "https://pbs.twimg.com/media/FVoOF1FWUAM6MqT?format=jpg&name=medium",
             ),
           ),
 
@@ -45,7 +45,7 @@ class PostCard extends StatelessWidget {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            "https://images.unsplash.com/photo-1682098155729-c0aff2dd10cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+                            "https://pbs.twimg.com/media/FVoOF1FWUAM6MqT?format=jpg&name=medium",
                           ),
                         ),
                       ),
@@ -55,14 +55,14 @@ class PostCard extends StatelessWidget {
                       child: Stack(
                         children: [
                           Text(
-                            'Ridhwan Nordin',
+                            'Make A Wish GA',
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                           Positioned(
                             left: 0,
                             top: 15,
                             child: Text(
-                              '@ridzjcob',
+                              '@makeawishga',
                               style: TextStyle(fontWeight: FontWeight.w300),
                             ),
                           ),
@@ -203,7 +203,7 @@ class OldPostCard extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.35,
             width: double.infinity,
             child: Image.network(
-              "https://images.unsplash.com/photo-1682128281178-24b8b96c4c3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+              "https://pbs.twimg.com/media/FVoOF1FWUAM6MqT?format=jpg&name=medium",
               fit: BoxFit.cover,
             ),
           ),

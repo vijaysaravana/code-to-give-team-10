@@ -78,8 +78,9 @@ def create_wish_web():
     log.info("wish: {}".format(wish))
     wish_created = wishDAO.create_wish(wish)
     wishmaker = userDAO.get_user_by_email(wish.maker_email)
+    wishvolunteer = userDAO.get_volunteers()[0]
     if wish_created:
-        return render_template('trackwish.html', wish=wish,  wishmaker=wishmaker, wishgiver=None, wishvolunteer=None
+        return render_template('trackwish.html', wish=wish,  wishmaker=wishmaker, wishgiver=None, wishvolunteer=wishvolunteer
                                ,user_email=maker_email, users=[])
     else:
             msg = 'User does not exist or username/password incorrect'
