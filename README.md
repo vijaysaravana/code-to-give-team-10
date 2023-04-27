@@ -1,6 +1,6 @@
 # code-to-give-team-10
 
-A multi channel application for onboarding wish makers, wish givers, volunteers for the Make A Wish foundation in GA.
+A multi channel application for onboarding wish makers, wish givers, volunteers for the Make A Wish foundation in GA built using Python3, Flask RESTful, MySQL, HTML, CSS, Flutter, Dart and Jinja2.
  
 Features:
 
